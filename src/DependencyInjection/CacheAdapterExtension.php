@@ -53,6 +53,7 @@ class CacheAdapterExtension extends Extension
             $def = $container->register('cache.provider.'.$name, DummyAdapter::class);
             $def->setFactory([new Reference($arguments['factory']), 'createAdapter'])
                 ->addArgument($arguments['options'])
+                ->addArgument(new Reference('monolog.logger.php_error'))
                 ->setLazy(true);
 
             $def->addTag('cache.provider');

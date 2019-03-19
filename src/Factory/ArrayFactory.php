@@ -13,6 +13,7 @@ namespace Cache\AdapterBundle\Factory;
 
 use Cache\Adapter\PHPArray\ArrayCachePool;
 use Cache\Namespaced\NamespacedCachePool;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -27,7 +28,7 @@ final class ArrayFactory extends AbstractAdapterFactory
     /**
      * {@inheritdoc}
      */
-    public function getAdapter(array $config)
+    public function getAdapter(array $config, LoggerInterface $logger)
     {
         $pool = new ArrayCachePool();
 

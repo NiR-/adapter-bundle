@@ -12,6 +12,7 @@
 namespace Cache\AdapterBundle\Factory;
 
 use Cache\Adapter\Chain\CachePoolChain;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -26,7 +27,7 @@ final class ChainFactory extends AbstractAdapterFactory
     /**
      * {@inheritdoc}
      */
-    public function getAdapter(array $config)
+    public function getAdapter(array $config, LoggerInterface $logger)
     {
         return new CachePoolChain($config['services'], ['skip_on_failure' => $config['skip_on_failure']]);
     }

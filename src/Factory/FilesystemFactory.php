@@ -12,6 +12,7 @@
 namespace Cache\AdapterBundle\Factory;
 
 use Cache\Adapter\Filesystem\FilesystemCachePool;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -26,7 +27,7 @@ final class FilesystemFactory extends AbstractAdapterFactory
     /**
      * {@inheritdoc}
      */
-    public function getAdapter(array $config)
+    public function getAdapter(array $config, LoggerInterface $logger)
     {
         return new FilesystemCachePool($config['flysystem_service']);
     }

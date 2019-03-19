@@ -13,6 +13,7 @@ namespace Cache\AdapterBundle\Factory;
 
 use Cache\Adapter\Doctrine\DoctrineCachePool;
 use Doctrine\Common\Cache\WinCacheCache;
+use Psr\Log\LoggerInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -22,7 +23,7 @@ final class DoctrineWinCacheFactory extends AbstractDoctrineAdapterFactory
     /**
      * {@inheritdoc}
      */
-    public function getAdapter(array $config)
+    public function getAdapter(array $config, LoggerInterface $logger)
     {
         return new DoctrineCachePool(new WinCacheCache());
     }

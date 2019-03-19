@@ -12,6 +12,7 @@
 namespace Cache\AdapterBundle\Factory;
 
 use Cache\Prefixed\PrefixedCachePool;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class PrefixedFactory extends AbstractAdapterFactory
@@ -23,7 +24,7 @@ final class PrefixedFactory extends AbstractAdapterFactory
     /**
      * {@inheritdoc}
      */
-    public function getAdapter(array $config)
+    public function getAdapter(array $config, LoggerInterface $logger)
     {
         return new PrefixedCachePool($config['service'], $config['prefix']);
     }

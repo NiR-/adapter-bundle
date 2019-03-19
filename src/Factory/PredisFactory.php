@@ -14,6 +14,7 @@ namespace Cache\AdapterBundle\Factory;
 use Cache\Adapter\Predis\PredisCachePool;
 use Cache\Namespaced\NamespacedCachePool;
 use Predis\Client;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -29,7 +30,7 @@ final class PredisFactory extends AbstractDsnAdapterFactory
     /**
      * {@inheritdoc}
      */
-    public function getAdapter(array $config)
+    public function getAdapter(array $config, LoggerInterface $logger)
     {
         $dsn = $this->getDsn();
         if (empty($dsn)) {

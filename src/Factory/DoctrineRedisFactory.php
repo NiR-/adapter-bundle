@@ -13,6 +13,7 @@ namespace Cache\AdapterBundle\Factory;
 
 use Cache\Adapter\Doctrine\DoctrineCachePool;
 use Doctrine\Common\Cache\RedisCache;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -23,7 +24,7 @@ final class DoctrineRedisFactory extends AbstractDoctrineAdapterFactory
     /**
      * {@inheritdoc}
      */
-    public function getAdapter(array $config)
+    public function getAdapter(array $config, LoggerInterface $logger)
     {
         $redis = new \Redis();
         $redis->connect($config['host'], $config['port']);

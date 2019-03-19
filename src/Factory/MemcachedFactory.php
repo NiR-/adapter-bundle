@@ -14,6 +14,7 @@ namespace Cache\AdapterBundle\Factory;
 use Cache\Adapter\Memcached\MemcachedCachePool;
 use Cache\AdapterBundle\ProviderHelper\Memcached;
 use Cache\Namespaced\NamespacedCachePool;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -28,7 +29,7 @@ final class MemcachedFactory extends AbstractAdapterFactory
     /**
      * {@inheritdoc}
      */
-    public function getAdapter(array $config)
+    public function getAdapter(array $config, LoggerInterface $logger)
     {
         $client = new Memcached($config['persistent_id']);
         $client->addServer($config['host'], $config['port']);

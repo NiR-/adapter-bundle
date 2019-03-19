@@ -12,6 +12,7 @@
 namespace Cache\AdapterBundle\Factory;
 
 use Psr\Cache\CacheItemPoolInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -20,10 +21,11 @@ interface AdapterFactoryInterface
 {
     /**
      * @param array $options
+     * @param LoggerInterface $logger
      *
      * @return CacheItemPoolInterface
      */
-    public function createAdapter(array $options = []);
+    public function createAdapter(array $options = [], LoggerInterface $logger = null);
 
     /**
      * Make sure the options are valid and the dependencies are met.

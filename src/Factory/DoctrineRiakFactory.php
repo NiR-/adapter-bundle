@@ -13,6 +13,7 @@ namespace Cache\AdapterBundle\Factory;
 
 use Cache\Adapter\Doctrine\DoctrineCachePool;
 use Doctrine\Common\Cache\RiakCache;
+use Psr\Log\LoggerInterface;
 use Riak\Bucket;
 use Riak\Connection;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -25,7 +26,7 @@ final class DoctrineRiakFactory extends AbstractDoctrineAdapterFactory
     /**
      * {@inheritdoc}
      */
-    public function getAdapter(array $config)
+    public function getAdapter(array $config, LoggerInterface $logger)
     {
         $connection = new Connection($config['host'], $config['port']);
         $bucket     = new Bucket($connection, $config['type']);

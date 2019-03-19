@@ -14,6 +14,7 @@ namespace Cache\AdapterBundle\Factory;
 use Cache\Adapter\Doctrine\DoctrineCachePool;
 use Couchbase;
 use Doctrine\Common\Cache\CouchbaseCache;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -24,7 +25,7 @@ final class DoctrineCouchbaseFactory extends AbstractDoctrineAdapterFactory
     /**
      * {@inheritdoc}
      */
-    public function getAdapter(array $config)
+    public function getAdapter(array $config, LoggerInterface $logger)
     {
         $couchbase = new Couchbase($config['host'], $config['user'], $config['password'], $config['bucket']);
 

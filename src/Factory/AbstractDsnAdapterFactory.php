@@ -12,6 +12,7 @@
 namespace Cache\AdapterBundle\Factory;
 
 use Cache\AdapterBundle\DSN;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -61,7 +62,7 @@ abstract class AbstractDsnAdapterFactory extends AbstractAdapterFactory
     /**
      * {@inheritdoc}
      */
-    public function createAdapter(array $options = [])
+    public function createAdapter(array $options = [], LoggerInterface $logger = null)
     {
         if (!empty($options['dsn'])) {
             $dsn = new DSN($options['dsn']);
@@ -72,6 +73,6 @@ abstract class AbstractDsnAdapterFactory extends AbstractAdapterFactory
             $this->DSN = $dsn;
         }
 
-        return parent::createAdapter($options);
+        return parent::createAdapter($options, $logger);
     }
 }

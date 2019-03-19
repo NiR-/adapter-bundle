@@ -13,7 +13,9 @@ namespace Cache\AdapterBundle\Factory;
 
 use Cache\AdapterBundle\Exception\ConfigurationException;
 use Psr\Cache\CacheItemPoolInterface;
+use Psr\Log\NullLogger;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Psr\Log\LoggerInterface;
 
 /**
  * An abstract factory that makes it easier to implement new factories. A class that extend the AbstractAdapterFactory
@@ -27,15 +29,16 @@ abstract class AbstractAdapterFactory implements AdapterFactoryInterface
 
     /**
      * @param array $config
+     * @param LoggerInterface $logger
      *
      * @return CacheItemPoolInterface
      */
-    abstract protected function getAdapter(array $config);
+    abstract protected function getAdapter(array $config, LoggerInterface $logger);
 
     /**
      * {@inheritdoc}
      */
-    public function createAdapter(array $options = [])
+    public function createAdapter(array $options = [], LoggerInterface $logger = null)
     {
         $this->verifyDependencies();
 
@@ -43,7 +46,7 @@ abstract class AbstractAdapterFactory implements AdapterFactoryInterface
         static::configureOptionResolver($resolver);
         $config = $resolver->resolve($options);
 
-        return $this->getAdapter($config);
+        return $this->getAdapter($config, $logger ?: new NullLogger());
     }
 
     /**

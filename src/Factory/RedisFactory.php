@@ -15,6 +15,7 @@ use Cache\Adapter\Redis\RedisCachePool;
 use Cache\AdapterBundle\Exception\ConnectException;
 use Cache\Namespaced\NamespacedCachePool;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Psr\Log\LoggerInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -29,7 +30,7 @@ final class RedisFactory extends AbstractDsnAdapterFactory
     /**
      * {@inheritdoc}
      */
-    public function getAdapter(array $config)
+    public function getAdapter(array $config, LoggerInterface $logger)
     {
         $client = new \Redis();
 
@@ -52,7 +53,7 @@ final class RedisFactory extends AbstractDsnAdapterFactory
             throw new ConnectException(sprintf('Could not select Redis database with index "%s".', $database));
         }
 
-        $pool = new RedisCachePool($client);
+        $pool = new RedisCachePool($client, $logger);
 
         if (null !== $config['pool_namespace']) {
             $pool = new NamespacedCachePool($pool, $config['pool_namespace']);
